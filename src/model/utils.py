@@ -21,7 +21,7 @@ import pandas as pd
 import nltk
 from nltk.corpus import wordnet as wn
 from nltk.stem.porter import PorterStemmer
-from sklearn.cross_validation import cross_val_score
+from sklearn.model_selection import cross_val_score
 
 from model.cross_validation import ClaimKFold
 

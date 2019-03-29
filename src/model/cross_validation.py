@@ -1,9 +1,9 @@
 import numpy as np
 
-from sklearn.cross_validation import _BaseKFold, KFold
+from sklearn.model_selection import KFold
 
 
-class ClaimKFold(_BaseKFold):
+class ClaimKFold(KFold):
 
     def __init__(self, data, n_folds=10, shuffle=False):
         super(ClaimKFold, self).__init__(len(data), n_folds, None, False, None)
