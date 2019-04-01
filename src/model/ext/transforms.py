@@ -1,11 +1,14 @@
 import itertools as it
 
 import numpy as np
+import nltk
+from nltk.data import load
+from collections import Counter
 
 from model.base import StatelessTransform
 from model.utils import get_stanparse_data, \
     get_cosine_similarity_data, get_hungarian_alignment_score_data, find_negated_word_idxs, \
-    get_stanparse_depths, get_dataset, get_svo_triples, get_ppdb_data
+    get_stanparse_depths, get_dataset, get_svo_triples, get_ppdb_data, cosine_sim
 
 from model.baseline.transforms import _refuting_words, _hedging_words
 
@@ -19,6 +22,40 @@ class Word2VecSimilaritySemanticTransform(StatelessTransform):
             if np.isnan(mat[i, 0]):
                 print s.claimId, s.articleId,
             mat[i, 0] = cos_mult[(s.claimId, s.articleId)]
+        return mat
+
+class PartOfSpeechTransform(StatelessTransform):
+
+    _tagdict = load('help/tagsets/upenn_tagset.pickle')
+
+    @staticmethod
+    def _count_tags(sentence):
+        # remove punctuations
+        # sentence = sentence.translate(string.maketrans("", ""), string.punctuation)
+
+        # Part-of-Speech tagging
+        tokens = nltk.word_tokenize(sentence.lower())
+        text = nltk.Text(tokens)
+        tags = nltk.pos_tag(text)
+
+        # count tags
+        counts = Counter(tag for word, tag in tags)
+        count = np.zeros(len(PartOfSpeechTransform._tagdict.keys()))
+        i = 0
+        for tag in PartOfSpeechTransform._tagdict.keys():
+            count[i] = 0 if counts.get(tag) is None else counts.get(tag)
+            i += 1
+
+        return count
+
+
+    def transform(self, X):
+        mat = np.zeros((len(X), 1))
+        for i, (_, s) in enumerate(X.iterrows()):
+            article_arr = self._count_tags(s.articleHeadline)
+            claim_arr = self._count_tags(s.claimHeadline)
+            mat[i, 0] = cosine_sim(article_arr, claim_arr)
+
         return mat
 
 

@@ -28,7 +28,8 @@ from model.ext.transforms import (
     NegationAlignmentTransform,
     Word2VecSimilaritySemanticTransform,
     DependencyRootDepthTransform,
-    SVOTransform
+    SVOTransform,
+    PartOfSpeechTransform
 )
 
 
@@ -49,7 +50,7 @@ if __name__ == '__main__':
     #     ]
 
     parser.add_argument('-f',
-                        default="Q,BoW,W2V,PPDB,RootDep,NegAlgn,SVO",
+                        default="Q,BoW,W2V,PPDB,RootDep,NegAlgn,SVO,PoS",
                         type=str)
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-i', action='store_true')
@@ -72,6 +73,7 @@ if __name__ == '__main__':
         'NegAlgn': NegationAlignmentTransform,
         'RootDep': DependencyRootDepthTransform,
         'SVO': SVOTransform,
+        'PoS':PartOfSpeechTransform
     }
 
     inc_transforms = args.f.split(',')
