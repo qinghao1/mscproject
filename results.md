@@ -103,3 +103,88 @@ Ablated test score: 0.7366412213740458
 -['PoS']         0.043668       0.000000
 -['Sent']       -0.312817       0.381679
 ```
+## With base
+### -i
+```
+Confusion matrix:
+=================
+             for  against  observing
+for        216.0      4.0       26.0
+against     14.0     64.0       13.0
+observing   72.0     10.0      105.0
+
+Measures:
+=========
+accuracy: 0.7347
+
+Per class:
+           accuracy precision    recall        F1
+for        0.778626  0.715232  0.878049  0.788321
+against    0.921756  0.820513  0.703297  0.757396
+observing  0.769084  0.729167  0.561497  0.634441
+         accuracy-cv  accuracy-test
+Q           0.519765       0.503817
+BoW         0.706586       0.698473
+W2V         0.706586       0.698473
+PPDB        0.707980       0.715649
+RootDep     0.734463       0.734733
+NegAlgn     0.735516       0.734733
+SVO         0.735894       0.734733
+```
+### ablation
+```
+>> Training classifier <<
+
+CV score: :0.735894
+Test score: :0.734733
+Ablating: ['Q']
+Ablated feature set:['BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.7170656646890475
+Ablated test score: 0.7213740458015268
+Ablating: ['BoW']
+Ablated feature set:['Q', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.7181426913275086
+Ablated test score: 0.6812977099236641
+Ablating: ['W2V']
+Ablated feature set:['Q', 'BoW', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.7353441049217231
+Ablated test score: 0.7347328244274809
+Ablating: ['PPDB']
+Ablated feature set:['Q', 'BoW', 'W2V', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.728041845175247
+Ablated test score: 0.7175572519083969
+Ablating: ['RootDep']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.7104122712138394
+Ablated test score: 0.7099236641221374
+Ablating: ['NegAlgn']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.7348405190635844
+Ablated test score: 0.7347328244274809
+Ablating: ['SVO']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn']
+>> Training classifier <<
+
+Ablated CV score: 0.7355161969806077
+Ablated test score: 0.7347328244274809
+              accuracy-cv  accuracy-test
+-['Q']           1.882789       1.335878
+-['BoW']         1.775086       5.343511
+-['W2V']         0.054945       0.000000
+-['PPDB']        0.785171       1.717557
+-['RootDep']     2.548128       2.480916
+-['NegAlgn']     0.105304       0.000000
+-['SVO']         0.037736       0.000000
+```
