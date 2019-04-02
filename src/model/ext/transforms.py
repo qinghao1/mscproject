@@ -47,17 +47,25 @@ class PartOfSpeechTransform(StatelessTransform):
             count[i] = 0 if counts.get(tag) is None else counts.get(tag)
             i += 1
 
-        return count
-
+        # return count
+        return count / np.linalg.norm(count)
 
     def transform(self, X):
-        mat = np.zeros((len(X), 1))
+        # mat = np.zeros((len(X), 1))
+        # for i, (_, s) in enumerate(X.iterrows()):
+        #     article_arr = self._count_tags(s.articleHeadline)
+        #     claim_arr = self._count_tags(s.claimHeadline)
+        #     mat[i, 0] = cosine_sim(article_arr, claim_arr)
+        #
+        # return mat
+        mat = np.zeros((len(X), len(PartOfSpeechTransform._tagdict.keys())))
         for i, (_, s) in enumerate(X.iterrows()):
             article_arr = self._count_tags(s.articleHeadline)
-            claim_arr = self._count_tags(s.claimHeadline)
-            mat[i, 0] = cosine_sim(article_arr, claim_arr)
+            for j in range(0, len(PartOfSpeechTransform._tagdict.keys())):
+                mat[i, j] = article_arr[j]
 
         return mat
+
 
 class SentimentTransform(StatelessTransform):
 
