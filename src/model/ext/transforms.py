@@ -5,6 +5,7 @@ import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.data import load
 from collections import Counter
+from textblob import TextBlob
 
 from model.base import StatelessTransform
 from model.utils import get_stanparse_data, \
@@ -80,6 +81,14 @@ class SentimentTransform(StatelessTransform):
             mat[i, 2] = sentScores['neu']
             mat[i, 3] = sentScores['pos']
         return mat
+
+    # def transform(self, X):
+    #     mat = np.zeros((len(X), 2))
+    #     for i, (_, s) in enumerate(X.iterrows()):
+    #         sentiment = TextBlob(s.claimHeadline).sentiment
+    #         mat[i, 0] = sentiment.polarity
+    #         mat[i, 1] = sentiment.subjectivity
+    #     return mat
 
 class AverageWordLengthTransform(StatelessTransform):
 
