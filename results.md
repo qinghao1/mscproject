@@ -1,6 +1,37 @@
 # Default (Logistic Regression)
 
 ## With PoS, Sentiment
+### Normal
+```
+Confusion matrix:
+=================
+             for  against  observing
+for        219.0      5.0       22.0
+against     15.0     64.0       12.0
+observing   70.0     12.0      105.0
+
+Measures:
+=========
+accuracy: 0.7405
+
+Per class:
+           accuracy precision    recall        F1
+for         0.78626  0.720395  0.890244  0.796364
+against    0.916031  0.790123  0.703297  0.744186
+observing  0.778626  0.755396  0.561497  0.644172
+         accuracy-cv  accuracy-test
+Q           0.519765       0.503817
+BoW         0.706586       0.698473
+W2V         0.706586       0.698473
+PPDB        0.707980       0.715649
+RootDep     0.734463       0.734733
+NegAlgn     0.735516       0.734733
+SVO         0.735894       0.734733
+PoS         0.736080       0.736641
+Sent        0.732952       0.740458
+```
+
+### Ablation
 ```
 >> Training classifier <<
 
