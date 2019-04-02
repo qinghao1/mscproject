@@ -111,6 +111,7 @@ class AverageWordLengthTransform(StatelessTransform):
             mat[i, 0] = avg_len
         return mat
 
+
 class LenRatioTransform(StatelessTransform):
 
     def transform(self, X):
@@ -119,6 +120,22 @@ class LenRatioTransform(StatelessTransform):
             ratio = len(s.articleHeadline) / len(s.claimHeadline)
             mat[i, 0] = ratio
         return mat
+
+
+class WordLengthPercentageTransform(StatelessTransform):
+
+    @staticmethod
+    def count_percentage(sentence):
+        words = sentence.split(" ")
+        filtered_words = filter(lambda x: len(x) >= 6, words)
+        return len(filtered_words) * 1.0 / len(words)
+
+    def transform(self, X):
+        mat = np.zeros((len(X), 1))
+        for i, (_, s) in enumerate(X.iterrows()):
+            mat[i, 0] = WordLengthPercentageTransform.count_percentage(s.articleHeadline)
+        return mat
+
 
 _hungarian = get_hungarian_alignment_score_data()
 
