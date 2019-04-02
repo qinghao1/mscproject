@@ -33,6 +33,7 @@ from model.ext.transforms import (
     SentimentTransform
 )
 
+DEFAULT_FEATURES = 'Q,BoW,W2V,PPDB,RootDep,NegAlgn,SVO,PoS,Sent'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='run_baseline cmd-line arguments.')
@@ -51,7 +52,7 @@ if __name__ == '__main__':
     #     ]
 
     parser.add_argument('-f',
-                        default="Q,BoW,W2V,PPDB,RootDep,NegAlgn,SVO,PoS,Sent",
+                        default=DEFAULT_FEATURES,
                         type=str)
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-i', action='store_true')
@@ -108,7 +109,7 @@ if __name__ == '__main__':
         if args.f:
             features = args.f
         else:
-            features = "Q,BoW,AlgnW2V,AlgnPPDB,RootDist,NegAlgn,SVO"
+            features = DEFAULT_FEATURES
         ablations = [[x] for x in features.split(',')]
         df_out = pd.DataFrame(index=['-' + str(a) for a in ablations],
                               columns=['accuracy-cv', 'accuracy-test'], data=np.nan)
