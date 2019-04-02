@@ -29,7 +29,8 @@ from model.ext.transforms import (
     Word2VecSimilaritySemanticTransform,
     DependencyRootDepthTransform,
     SVOTransform,
-    PartOfSpeechTransform
+    PartOfSpeechTransform,
+    SentimentTransform
 )
 
 
@@ -50,7 +51,7 @@ if __name__ == '__main__':
     #     ]
 
     parser.add_argument('-f',
-                        default="Q,BoW,W2V,PPDB,RootDep,NegAlgn,SVO,PoS",
+                        default="Q,BoW,W2V,PPDB,RootDep,NegAlgn,SVO,PoS,Sent",
                         type=str)
     group = parser.add_mutually_exclusive_group()
     group.add_argument('-i', action='store_true')
@@ -73,7 +74,8 @@ if __name__ == '__main__':
         'NegAlgn': NegationAlignmentTransform,
         'RootDep': DependencyRootDepthTransform,
         'SVO': SVOTransform,
-        'PoS':PartOfSpeechTransform
+        'PoS': PartOfSpeechTransform,
+        'Sent': SentimentTransform
     }
 
     inc_transforms = args.f.split(',')

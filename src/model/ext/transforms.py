@@ -2,6 +2,7 @@ import itertools as it
 
 import numpy as np
 import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.data import load
 from collections import Counter
 
@@ -58,6 +59,19 @@ class PartOfSpeechTransform(StatelessTransform):
 
         return mat
 
+class SentimentTransform(StatelessTransform):
+
+    sentAnalyzer = SentimentIntensityAnalyzer();
+
+    def transform(self, X):
+        mat = np.zeros((len(X), 4,)) # compound, neg, neu, pos
+        for i, (_, s) in enumerate(X.iterrows()):
+            sentScores = SentimentTransform.sentAnalyzer.polarity_scores(s.articleHeadline)
+            mat[i, 0] = sentScores['compound']
+            mat[i, 1] = sentScores['neg']
+            mat[i, 2] = sentScores['neu']
+            mat[i, 3] = sentScores['pos']
+        return mat
 
 _hungarian = get_hungarian_alignment_score_data()
 
