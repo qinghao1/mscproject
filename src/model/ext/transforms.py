@@ -73,6 +73,43 @@ class SentimentTransform(StatelessTransform):
             mat[i, 3] = sentScores['pos']
         return mat
 
+class AverageWordLengthTransform(StatelessTransform):
+
+    @staticmethod
+    def remove_punctuation(word):
+        return ''.join([c for c in word if c.isalpha()])
+
+    @staticmethod
+    def get_average_word_length(sentence):
+        words = sentence.split()
+        words = map(AverageWordLengthTransform.remove_punctuation, words)
+        words = filter(lambda x: len(x) > 0, words)
+        return sum([len(word) for word in words]) / len(words)
+
+    def transform(self, X):
+        mat = np.zeros((len(X), 1,))
+        for i, (_, s) in enumerate(X.iterrows()):
+            avg_len = AverageWordLengthTransform.get_average_word_length(s.articleHeadline)
+            mat[i, 0] = avg_len
+        return mat
+
+class NumCharsTransform(StatelessTransform):
+
+    @staticmethod
+    def get_num_chars(sentence):
+        num = 0
+        for c in sentence:
+            if c != ' ':
+                num += 1
+        return num
+
+    def transform(self, X):
+        mat = np.zeros((len(X), 1,))
+        for i, (_, s) in enumerate(X.iterrows()):
+            num_chars = NumCharsTransform.get_num_chars(s.articleHeadline)
+            mat[i, 0] = num_chars
+        return mat
+
 _hungarian = get_hungarian_alignment_score_data()
 
 
