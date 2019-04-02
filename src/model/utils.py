@@ -326,8 +326,8 @@ def calc_measures(cm):
         fn = sum(cm.ix[c, :]) - tp
         tn = sum(sum(cm.values)) - tp - fp - fn
         df.ix[c, 'accuracy'] = (tp + tn) / (tp + tn + fp + fn)
-        pr = df.ix[c, 'precision'] = tp / (tp + fp)
-        rc = df.ix[c, 'recall'] = tp / (tp + fn)
+        pr = df.ix[c, 'precision'] = -1 if (tp + fp) == 0 else tp / (tp + fp)
+        rc = df.ix[c, 'recall'] = -1 if (tp + fn) == 0 else tp / (tp + fn)
         df.ix[c, 'F1'] = (2 * pr * rc) / (pr + rc)
     return df
 
