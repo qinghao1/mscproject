@@ -93,21 +93,13 @@ class AverageWordLengthTransform(StatelessTransform):
             mat[i, 0] = avg_len
         return mat
 
-class NumCharsTransform(StatelessTransform):
-
-    @staticmethod
-    def get_num_chars(sentence):
-        num = 0
-        for c in sentence:
-            if c != ' ':
-                num += 1
-        return num
+class LenRatioTransform(StatelessTransform):
 
     def transform(self, X):
         mat = np.zeros((len(X), 1,))
         for i, (_, s) in enumerate(X.iterrows()):
-            num_chars = NumCharsTransform.get_num_chars(s.articleHeadline)
-            mat[i, 0] = num_chars
+            ratio = len(s.articleHeadline) / len(s.claimHeadline)
+            mat[i, 0] = ratio
         return mat
 
 _hungarian = get_hungarian_alignment_score_data()
