@@ -2,7 +2,8 @@ import itertools as it
 
 import numpy as np
 import nltk
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk.corpus import opinion_lexicon
+from nltk.tokenize import treebank
 from nltk.data import load
 from collections import Counter
 from textblob import TextBlob
@@ -69,17 +70,26 @@ class PartOfSpeechTransform(StatelessTransform):
 
 
 class SentimentTransform(StatelessTransform):
+    tokenizer = treebank.TreebankWordTokenizer()
 
-    sentAnalyzer = SentimentIntensityAnalyzer();
+    @staticmethod
+    def analyze_sentiment(sentence):
+        pos_words = 0
+        neg_words = 0
+        tokenized_sent = [word.lower() for word in SentimentTransform.tokenizer.tokenize(sentence)]
+
+        for word in tokenized_sent:
+            if word in opinion_lexicon.positive():
+                pos_words += 1
+            elif word in opinion_lexicon.negative():
+                neg_words += 1
+
+        return pos_words - neg_words
 
     def transform(self, X):
-        mat = np.zeros((len(X), 4,)) # compound, neg, neu, pos
+        mat = np.zeros((len(X), 1,))
         for i, (_, s) in enumerate(X.iterrows()):
-            sentScores = SentimentTransform.sentAnalyzer.polarity_scores(s.articleHeadline)
-            mat[i, 0] = sentScores['compound']
-            mat[i, 1] = sentScores['neg']
-            mat[i, 2] = sentScores['neu']
-            mat[i, 3] = sentScores['pos']
+            mat[i,0] = SentimentTransform.analyze_sentiment(s.articleHeadline)
         return mat
 
     # def transform(self, X):
