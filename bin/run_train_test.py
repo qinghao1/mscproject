@@ -30,10 +30,12 @@ from model.ext.transforms import (
     DependencyRootDepthTransform,
     SVOTransform,
     PartOfSpeechTransform,
-    SentimentTransform
+    SentimentTransform,
+    AverageWordLengthTransform,
+    NumCharsTransform
 )
 
-DEFAULT_FEATURES = 'Q,BoW,W2V,PPDB,RootDep,NegAlgn,SVO,PoS,Sent'
+DEFAULT_FEATURES = 'Q,BoW,W2V,PPDB,RootDep,NegAlgn,SVO,PoS,Sent,AvgWordLen,NumChar'
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='run_baseline cmd-line arguments.')
@@ -76,7 +78,9 @@ if __name__ == '__main__':
         'RootDep': DependencyRootDepthTransform,
         'SVO': SVOTransform,
         'PoS': PartOfSpeechTransform,
-        'Sent': SentimentTransform
+        'Sent': SentimentTransform,
+        'AvgWordLen': AverageWordLengthTransform,
+        'NumChar': NumCharsTransform
     }
 
     inc_transforms = args.f.split(',')
