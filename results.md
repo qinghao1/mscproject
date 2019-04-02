@@ -1,7 +1,7 @@
 # Default (Logistic Regression)
 
 ## With PoS, Sentiment
-### Normal
+### -i
 ```
 Confusion matrix:
 =================
