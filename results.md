@@ -135,6 +135,36 @@ SVO         0.735894       0.734733
 ```
 >> Training classifier <<
 
+CV score: :0.735894
+Test score: :0.734733
+Ablating: ['Q']
+Ablated feature set:['BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.7170656646890475
+Ablated test score: 0.7213740458015268
+Ablating: ['BoW']
+Ablated feature set:['Q', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.7181426913275086
+Ablated test score: 0.6812977099236641
+Ablating: ['W2V']
+Ablated feature set:['Q', 'BoW', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.7353441049217231
+Ablated test score: 0.7347328244274809
+Ablating: ['PPDB']
+Ablated feature set:['Q', 'BoW', 'W2V', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.728041845175247
+Ablated test score: 0.7175572519083969
+Ablating: ['RootDep']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
 Ablated CV score: 0.7104122712138394
 Ablated test score: 0.7099236641221374
 Ablating: ['NegAlgn']
