@@ -31,7 +31,30 @@ PoS         0.736080       0.736641
 Sent        0.732952       0.740458
 ```
 
+### textblob Senti
+
+```
+Ablated CV score: 0.7328682172287999
+Ablated test score: 0.7385496183206107
+                 accuracy-cv  accuracy-test
+-['Q']              0.176825       0.572519
+-['BoW']            2.181566       5.916031
+-['W2V']            0.103965      -0.190840
+-['PPDB']           0.226383       0.381679
+-['RootDep']        1.995525       3.244275
+-['NegAlgn']        0.079278      -0.381679
+-['SVO']           -0.266690      -0.190840
+-['PoS']            0.112905       0.190840
+-['Sent']          -0.161400       0.572519
+-['AvgWordLen']     0.090703      -0.190840
+-['LenRatio']       0.039925      -0.190840
+-['Perc']           0.024188      -0.190840
+```
+
+
+
 ### Ablation
+
 ```
 >> Training classifier <<
 
@@ -417,5 +440,231 @@ Ablated test score: 0.7442748091603053
 -['RootDep']     6.354747       6.679389
 -['NegAlgn']     1.703959       2.099237
 -['SVO']         1.884392      -0.190840
+```
+
+
+
+# SVM
+
+## With base
+
+### -i
+
+```
+Confusion matrix:
+=================
+             for  against  observing
+for        233.0      2.0       11.0
+against     26.0     61.0        4.0
+observing  131.0      7.0       49.0
+
+Measures:
+=========
+accuracy: 0.6546
+
+Per class:
+           accuracy precision    recall        F1
+for        0.675573  0.597436  0.947154  0.732704
+against    0.925573  0.871429   0.67033  0.757764
+observing  0.708015  0.765625  0.262032  0.390438
+         accuracy-cv  accuracy-test
+Q           0.519765       0.503817
+BoW         0.485494       0.473282
+W2V         0.485494       0.473282
+PPDB        0.485228       0.471374
+RootDep     0.691533       0.654580
+NegAlgn     0.691533       0.654580
+SVO         0.691533       0.654580
+```
+
+
+
+### -a
+
+```
+>> Training classifier <<
+
+CV score: :0.691533
+Test score: :0.654580
+Ablating: ['Q']
+Ablated feature set:['BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['BoW']
+Ablated feature set:['Q', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.713528786632269
+Ablated test score: 0.6774809160305344
+Ablating: ['W2V']
+Ablated feature set:['Q', 'BoW', 'PPDB', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['PPDB']
+Ablated feature set:['Q', 'BoW', 'W2V', 'RootDep', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['RootDep']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'NegAlgn', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.485065561259215
+Ablated test score: 0.4675572519083969
+Ablating: ['NegAlgn']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'SVO']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['SVO']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+              accuracy-cv  accuracy-test
+-['Q']           0.000000       0.000000
+-['BoW']        -2.199577      -2.290076
+-['W2V']         0.000000       0.000000
+-['PPDB']        0.000000       0.000000
+-['RootDep']    20.646745      18.702290
+-['NegAlgn']     0.000000       0.000000
+-['SVO']         0.000000       0.000000
+```
+
+## With new features
+
+### -i
+
+```
+Confusion matrix:
+=================
+             for  against  observing
+for        233.0      2.0       11.0
+against     26.0     61.0        4.0
+observing  131.0      7.0       49.0
+
+Measures:
+=========
+accuracy: 0.6546
+
+Per class:
+           accuracy precision    recall        F1
+for        0.675573  0.597436  0.947154  0.732704
+against    0.925573  0.871429   0.67033  0.757764
+observing  0.708015  0.765625  0.262032  0.390438
+            accuracy-cv  accuracy-test
+Q              0.519765       0.503817
+BoW            0.485494       0.473282
+W2V            0.485494       0.473282
+PPDB           0.485228       0.471374
+RootDep        0.691533       0.654580
+NegAlgn        0.691533       0.654580
+SVO            0.691533       0.654580
+PoS            0.691533       0.654580
+Sent           0.691533       0.654580
+AvgWordLen     0.691533       0.654580
+LenRatio       0.691533       0.654580
+Perc           0.691533       0.654580
+```
+
+### -a
+
+```
+>> Training classifier <<
+
+CV score: :0.691533
+Test score: :0.654580
+Ablating: ['Q']
+Ablated feature set:['BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO', 'PoS', 'Sent', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['BoW']
+Ablated feature set:['Q', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO', 'PoS', 'Sent', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.7081182698067828
+Ablated test score: 0.6755725190839694
+Ablating: ['W2V']
+Ablated feature set:['Q', 'BoW', 'PPDB', 'RootDep', 'NegAlgn', 'SVO', 'PoS', 'Sent', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['PPDB']
+Ablated feature set:['Q', 'BoW', 'W2V', 'RootDep', 'NegAlgn', 'SVO', 'PoS', 'Sent', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['RootDep']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'NegAlgn', 'SVO', 'PoS', 'Sent', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.49322298757423744
+Ablated test score: 0.4847328244274809
+Ablating: ['NegAlgn']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'SVO', 'PoS', 'Sent', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['SVO']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'PoS', 'Sent', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['PoS']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO', 'Sent', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['Sent']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO', 'PoS', 'AvgWordLen', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['AvgWordLen']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO', 'PoS', 'Sent', 'LenRatio', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['LenRatio']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO', 'PoS', 'Sent', 'AvgWordLen', 'Perc']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+Ablating: ['Perc']
+Ablated feature set:['Q', 'BoW', 'W2V', 'PPDB', 'RootDep', 'NegAlgn', 'SVO', 'PoS', 'Sent', 'AvgWordLen', 'LenRatio']
+>> Training classifier <<
+
+Ablated CV score: 0.6915330134748329
+Ablated test score: 0.6545801526717557
+                 accuracy-cv  accuracy-test
+-['Q']              0.000000       0.000000
+-['BoW']           -1.658526      -2.099237
+-['W2V']            0.000000       0.000000
+-['PPDB']           0.000000       0.000000
+-['RootDep']       19.831003      16.984733
+-['NegAlgn']        0.000000       0.000000
+-['SVO']            0.000000       0.000000
+-['PoS']            0.000000       0.000000
+-['Sent']           0.000000       0.000000
+-['AvgWordLen']     0.000000       0.000000
+-['LenRatio']       0.000000       0.000000
+-['Perc']           0.000000       0.000000
 ```
 
