@@ -30,10 +30,10 @@ This repository contains the source code for my MSc Project: "For or Against? As
 
       **conda install gensim**
       
-9. installing package: munkres 1.0.7 (provides an implementation of the Hungarian Algorithm, used for word alignment) by:
+9. installing package: munkres 1.1.2 (provides an implementation of the Hungarian Algorithm, used for word alignment) by:
     1. downloading the package from https://pypi.python.org/pypi/munkres/
     2. unzipping the file somewhere
-    3. cd munkres-1.0.7
+    3. cd munkres-1.1.2
     4. issuing the command: **python setup.py install**, at the prompt
 
 You should now have all you need to run the code. The relevant scripts are in the project bin/ directory. From there you can run the following:
@@ -131,46 +131,7 @@ You should now have all you need to run the code. The relevant scripts are in th
 
       This case performs the ablation test for a given list of features is displayed.
 
-To run the code for the MaxEntClassificationEDA classifier, do the following:
 
-1. Follow the instructions to download an install EOP, which can be found here: https://github.com/hltfbk/EOP-1.2.3/wiki
-2. Train the model with the English RTE-3 training data-set, and then test it with the EmergentLite test data-set: 
-
-      1. cd into the following directory: <where you installed EOP>/Excitement-Open-Platform-1.2.3/target/EOP-1.2.3
-      2. train the model: issue the following command at the prompt:
-      
-            java -Djava.ext.dirs=../EOP-1.2.3 eu.excitementproject.eop.util.runner.EOPRunner -train -trainFile ./eop-resources-1.2.3/data-set/English_dev.xml -config ./eop-resources-1.2.3/configuration-files/MaxEntClassificationEDA_Base+WN+VO+TP+TPPos_EN.xml
-            
-      3. test the model: issue the following command at the prompt:
-      
-            java -Djava.ext.dirs=../EOP-1.2.3 eu.excitementproject.eop.util.runner.EOPRunner -test -testFile <path to where mscproject was cloned>/mscproject/data/emergent/url-versions-2015-06-14-clean-test-rte.xml -config ./eop-resources-1.2.3/configuration-files/MaxEntClassificationEDA_Base+WN+VO+TP+TPPos_EN.xml -output <where you want the output to go>
-            
-3. Train the model with the EmergentLite training data-set, and then test it with the EmergentLite test data-set:
-
-      1. cd into the following directory: <where you installed EOP>/Excitement-Open-Platform-1.2.3/target/EOP-1.2.3
-      2. train the model: issue the following command at the prompt:
-      
-            java -Djava.ext.dirs=../EOP-1.2.3 eu.excitementproject.eop.util.runner.EOPRunner -train -trainFile <path to where mscproject was cloned>/mscproject/data/emergent/url-versions-2015-06-14-clean-train-rte.xml -config ./eop-resources-1.2.3/configuration-files/MaxEntClassificationEDA_Base+WN+VO+TP+TPPos_EN.xml
-            
-      3. test the model: same as step 3. above
-      
-In each case above, the output will consist of a number of files. The results files will be named: MaxEntClassificationEDA_Base+WN+VO+TP+TPPos_EN.xml_results.{txt or xml}; the contents are pretty self-explanatory.
-
-The project comes complete with an ./output/eop/ directory containing pre-computed results:
-
-      ./rte-clean-test/ - the results of training the model on English RTE-3, and testing it on EmergentLite (test data-set)
-      
-      ./rte-clean-test-fa/ - the results of training the model on English RTE-3, and testing it on EmergentLite (test data-set) with observing stance articles removed, i.e. only against the for and against stances
-      
-      ./emergent-clean-test/ - the results of training the model on EmergentLite (training data-set), and testing it on EmergentLite (test data-set)
-      
-      ./fold-X/ - the results of training the model on English RTE-3, and testing it on EmergentLite (test data-set fold X)
-      
-Running the following script:
-
-**python run_eop_compare.py**
-
-compares the (pre-computed) output of the MaxEntClassificationEDA classifier for the scenarios decribed above, and outputs accuracy results.
 
       
 
