@@ -30,10 +30,10 @@ This repository contains the source code for my MSc Project: "For or Against? As
 
       **conda install gensim**
       
-9. installing package: munkres 1.0.7 (provides an implementation of the Hungarian Algorithm, used for word alignment) by:
+9. installing package: munkres 1.1.2 (provides an implementation of the Hungarian Algorithm, used for word alignment) by:
     1. downloading the package from https://pypi.python.org/pypi/munkres/
     2. unzipping the file somewhere
-    3. cd munkres-1.0.7
+    3. cd munkres-1.1.2
     4. issuing the command: **python setup.py install**, at the prompt
 
 You should now have all you need to run the code. The relevant scripts are in the project bin/ directory. From there you can run the following:
