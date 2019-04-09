@@ -36,8 +36,8 @@ class AbstractPredictor(BaseEstimator):
         for _,misclassified in alldata[misclassified_idxs].iterrows():
             print misclassified['claimHeadline']
             print misclassified['articleHeadline']
-            print misclassified['articleHeadlineStance']
-            print misclassified['pred_label']
+            print 'Real stance: ' + misclassified['articleHeadlineStance']
+            print 'Pred stance: ' + misclassified['pred_label']
             print '----'
         accuracy = accuracy_score(y, y_predicted)
         cm = calc_confusion_matrix(y, y_predicted)
