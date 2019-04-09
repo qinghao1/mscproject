@@ -28,6 +28,17 @@ class AbstractPredictor(BaseEstimator):
 
     def score(self, X, y):
         y_predicted = self.predict(X)
+        misclassified_idxs = y_predicted != y
+        alldata = X.copy()
+        alldata['pred_label'] = y_predicted
+        print "Misclassifications\n============="
+        print alldata[misclassified_idxs]
+        for _,misclassified in alldata[misclassified_idxs].iterrows():
+            print misclassified['claimHeadline']
+            print misclassified['articleHeadline']
+            print misclassified['articleHeadlineStance']
+            print misclassified['pred_label']
+            print '----'
         accuracy = accuracy_score(y, y_predicted)
         cm = calc_confusion_matrix(y, y_predicted)
         measures = calc_measures(cm)
